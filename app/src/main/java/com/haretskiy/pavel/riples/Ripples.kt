@@ -33,6 +33,8 @@ class Ripples
     private var circleRadius = 0
     private var newCircleRadius = 0
 
+    private val WIDTH_RIPLE = 80
+
     private var lowColor = 0
     private var highColor = 0
 
@@ -108,7 +110,7 @@ class Ripples
         canvas?.let { canvas1 ->
             drawCircle(canvas1, newCircleRadius)
             (1..10).forEach {
-                drawCircle(canvas1, getRadius(it * 50))
+                drawCircle(canvas1, getRadius(it * WIDTH_RIPLE))
             }
         }
         if (!isAnim) animateCircle()
@@ -125,7 +127,7 @@ class Ripples
             textAlign = Paint.Align.CENTER
         }
         drawable?.let {
-            it.setBounds(10, 10, radius, radius)
+            it.setBounds(circleRadius / 2 - radius / 2, circleRadius / 2 - radius / 2, circleRadius / 2 + radius / 2, circleRadius / 2 + radius / 2)
             it.draw(canvas)
         }
     }
