@@ -9,6 +9,7 @@
         android:height="150dp" />
     <gradient
         android:angle="45"
+        android:centerColor="@color/colorPrimary"
         android:endColor="@color/miat_light"
         android:gradientRadius="200"
         android:startColor="@color/red_dark"

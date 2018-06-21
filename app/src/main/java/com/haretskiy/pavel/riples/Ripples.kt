@@ -1,5 +1,6 @@
 package com.haretskiy.pavel.riples
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
@@ -28,12 +29,13 @@ class Ripples
     }
 
     private var isRunning = false
-    private var isAnim = false
+    private var isAnimStarted = false
 
     private var circleRadius = 0
     private var newCircleRadius = 0
 
     private val WIDTH_RIPLE = 80
+    private val ANIM_DUR = 1000L
 
     private var lowColor = 0
     private var highColor = 0
@@ -113,7 +115,9 @@ class Ripples
                 drawCircle(canvas1, getRadius(it * WIDTH_RIPLE))
             }
         }
-        if (!isAnim) animateCircle()
+        if (!isAnimStarted) {
+            animator().start()
+        }
     }
 
     private fun getRadius(value: Int): Int {
@@ -132,19 +136,28 @@ class Ripples
         }
     }
 
-    private fun animateCircle() {
-        isAnim = true
+    private fun animator(): ValueAnimator {
         val animator = ValueAnimator.ofInt(0, circleRadius)
-        animator.duration = 2000
+        animator.duration = ANIM_DUR
         animator.interpolator = DecelerateInterpolator()
         animator.addUpdateListener { animation ->
             newCircleRadius = animation.animatedValue as Int
-            if (newCircleRadius == circleRadius) {
-                isAnim = false
-            }
             invalidate()
         }
-        animator.start()
+        animator.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationEnd(p0: Animator?) {
+                isAnimStarted = false
+            }
+
+            override fun onAnimationStart(p0: Animator?) {
+                isAnimStarted = true
+            }
+
+            override fun onAnimationRepeat(p0: Animator?) {}
+            override fun onAnimationCancel(p0: Animator?) {}
+
+        })
+        return animator
     }
 
 }
