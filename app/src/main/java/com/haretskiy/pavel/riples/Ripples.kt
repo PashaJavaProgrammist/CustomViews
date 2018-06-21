@@ -48,6 +48,8 @@ class Ripples
 
     private val paint = Paint()
 
+    private val drawable = getDrawable(context, R.drawable.circle)
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         xCenter = width / generalSizeConst
@@ -122,7 +124,7 @@ class Ripples
             strokeWidth = thinStrokeConst * radius
             textAlign = Paint.Align.CENTER
         }
-        getDrawable(context, R.drawable.circle)?.let {
+        drawable?.let {
             it.setBounds(10, 10, radius, radius)
             it.draw(canvas)
         }
