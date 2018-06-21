@@ -103,20 +103,11 @@ class Ripples
                 }
             }
         }
-        canvas?.let { it ->
-            drawCircle(it, newCircleRadius)
-            drawCircle(it, getRadius(10 * 5))
-            drawCircle(it, getRadius(20 * 5))
-            drawCircle(it, getRadius(30 * 5))
-            drawCircle(it, getRadius(40 * 5))
-            drawCircle(it, getRadius(50 * 5))
-            drawCircle(it, getRadius(60 * 5))
-            drawCircle(it, getRadius(70 * 5))
-            drawCircle(it, getRadius(80 * 5))
-            drawCircle(it, getRadius(90 * 5))
-            drawCircle(it, getRadius(100 * 5))
-
-
+        canvas?.let { canvas1 ->
+            drawCircle(canvas1, newCircleRadius)
+            (1..10).forEach {
+                drawCircle(canvas1, getRadius(it * 50))
+            }
         }
         if (!isAnim) animateCircle()
     }
