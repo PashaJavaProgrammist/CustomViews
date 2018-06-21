@@ -36,7 +36,7 @@ class Ripples
     private var circleRadius = 0
     private var newCircleRadius = 0
 
-    private val WIDTH_RIPLE = 80
+    private val WIDTH_RIPLE = 100
     private val ANIM_DUR = 1000L
 
     private var lowColor = 0
@@ -134,12 +134,16 @@ class Ripples
         }
         drawable?.let {
             it.setBounds(circleRadius / 2 - radius / 2, circleRadius / 2 - radius / 2, circleRadius / 2 + radius / 2, circleRadius / 2 + radius / 2)
+            //todo: fix alpha
+            it.alpha = convertInAlpha(radius)
             it.draw(canvas)
         }
     }
 
+    private fun convertInAlpha(circleRadius: Int) = circleRadius * 20 / 100
+
     private fun animator(): ValueAnimator {
-        val animator = if (counter % 2 == 0) ValueAnimator.ofInt(0, circleRadius) else ValueAnimator.ofInt(circleRadius, 0)
+        val animator = if (counter % 2 == 0) ValueAnimator.ofInt(100, circleRadius) else ValueAnimator.ofInt(circleRadius, 100)
         animator.duration = ANIM_DUR
         animator.interpolator = DecelerateInterpolator()
         animator.addUpdateListener { animation ->
