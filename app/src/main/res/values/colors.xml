@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#1211FB</color>
+    <color name="colorPrimaryDark">#303F99</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="miat">#69f0ae</color>
+    <color name="miat_dark">#2bbd7e</color>
+    <color name="miat_light">#9fffe0</color>
+
+    <color name="red">#ff1d00</color>
+    <color name="red_dark">#b20505</color>
+    <color name="red_light">#f7362c</color>
 </resources>

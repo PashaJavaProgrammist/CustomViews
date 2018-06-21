@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Ripples">
+        <attr name="lowColor" format="integer" />
+        <attr name="highColor" format="integer" />
+    </declare-styleable>
+</resources>
