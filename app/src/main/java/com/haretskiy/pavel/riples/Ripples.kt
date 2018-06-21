@@ -105,8 +105,24 @@ class Ripples
         }
         canvas?.let { it ->
             drawCircle(it, newCircleRadius)
+            drawCircle(it, getRadius(10 * 5))
+            drawCircle(it, getRadius(20 * 5))
+            drawCircle(it, getRadius(30 * 5))
+            drawCircle(it, getRadius(40 * 5))
+            drawCircle(it, getRadius(50 * 5))
+            drawCircle(it, getRadius(60 * 5))
+            drawCircle(it, getRadius(70 * 5))
+            drawCircle(it, getRadius(80 * 5))
+            drawCircle(it, getRadius(90 * 5))
+            drawCircle(it, getRadius(100 * 5))
+
+
         }
         if (!isAnim) animateCircle()
+    }
+
+    private fun getRadius(value: Int): Int {
+        return if (newCircleRadius - value > 0) newCircleRadius - value else 0
     }
 
     private fun drawCircle(canvas: Canvas, radius: Int) {
@@ -119,7 +135,6 @@ class Ripples
             it.setBounds(10, 10, radius, radius)
             it.draw(canvas)
         }
-
     }
 
     private fun animateCircle() {
