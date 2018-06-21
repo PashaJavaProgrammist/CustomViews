@@ -1,13 +1,14 @@
 package com.haretskiy.pavel.riples
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.os.Handler
-import android.os.Looper
 import android.support.v4.content.ContextCompat.getDrawable
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.DecelerateInterpolator
+
 
 class Ripples
 @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
@@ -27,15 +28,13 @@ class Ripples
     }
 
     private var isRunning = false
+    private var isAnim = false
 
-    private val invalidateHandler: Handler by lazy {
-        Handler(Looper.getMainLooper())
-    }
+    private var circleRadius = 0
+    private var newCircleRadius = 0
 
     private var lowColor = 0
     private var highColor = 0
-
-    private val delay = 100L
 
     private var xCenter = 0f
     private var yCenter = 0f
@@ -59,7 +58,6 @@ class Ripples
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         isRunning = true
-        update()
     }
 
     override fun onDetachedFromWindow() {
@@ -96,32 +94,47 @@ class Ripples
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        canvas?.let { it -> drawCircle(it) }
+        canvas?.let { it ->
+            if (circleRadius == 0) {
+                circleRadius = if (it.width < it.height) {
+                    it.width - 10
+                } else {
+                    it.height - 10
+                }
+            }
+        }
+        canvas?.let { it ->
+            drawCircle(it, newCircleRadius)
+        }
+        if (!isAnim) animateCircle()
     }
 
-    private fun drawCircle(canvas: Canvas) {
+    private fun drawCircle(canvas: Canvas, radius: Int) {
         paint.apply {
             color = highColor
             strokeWidth = thinStrokeConst * radius
             textAlign = Paint.Align.CENTER
         }
-        val drawable = getDrawable(context, R.drawable.circle)?.let {
-            if (canvas.width < canvas.height) {
-                it.setBounds(10, 10, canvas.width - 10, canvas.width - 10)
-            } else {
-                it.setBounds(10, 10, canvas.height - 10, canvas.height - 10)
-            }
+        getDrawable(context, R.drawable.circle)?.let {
+            it.setBounds(10, 10, radius, radius)
             it.draw(canvas)
         }
+
     }
 
-    private fun update() {
-        if (isRunning) {
-            invalidateHandler.postDelayed({
-                invalidate()
-                update()
-            }, delay)
+    private fun animateCircle() {
+        isAnim = true
+        val animator = ValueAnimator.ofInt(0, circleRadius)
+        animator.duration = 2000
+        animator.interpolator = DecelerateInterpolator()
+        animator.addUpdateListener { animation ->
+            newCircleRadius = animation.animatedValue as Int
+            if (newCircleRadius == circleRadius) {
+                isAnim = false
+            }
+            invalidate()
         }
+        animator.start()
     }
 
 }

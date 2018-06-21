@@ -5,8 +5,8 @@
         android:width="0dp"
         android:color="#000000" />
     <size
-        android:width="100dp"
-        android:height="100dp"></size>
+        android:width="150dp"
+        android:height="150dp" />
     <gradient
         android:angle="45"
         android:endColor="@color/miat_light"
