@@ -28,6 +28,8 @@ class Ripples
         }
     }
 
+    private var counter = 0
+
     private var isRunning = false
     private var isAnimStarted = false
 
@@ -137,7 +139,7 @@ class Ripples
     }
 
     private fun animator(): ValueAnimator {
-        val animator = ValueAnimator.ofInt(0, circleRadius)
+        val animator = if (counter % 2 == 0) ValueAnimator.ofInt(0, circleRadius) else ValueAnimator.ofInt(circleRadius, 0)
         animator.duration = ANIM_DUR
         animator.interpolator = DecelerateInterpolator()
         animator.addUpdateListener { animation ->
@@ -157,6 +159,7 @@ class Ripples
             override fun onAnimationCancel(p0: Animator?) {}
 
         })
+        counter++
         return animator
     }
 
