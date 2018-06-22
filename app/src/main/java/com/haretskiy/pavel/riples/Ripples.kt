@@ -55,6 +55,8 @@ class Ripples
     private val paint = Paint()
 
     private val drawable = getDrawable(context, R.drawable.circle)
+    private val icon = getDrawable(context, R.mipmap.ic_launcher_round)
+
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -113,6 +115,7 @@ class Ripples
         }
         canvas?.let { canvas1 ->
             drawCircle(canvas1, newCircleRadius)
+            drawIcon(canvas1)
 //            (1..10).forEach {
 //                drawCircle(canvas1, getRadius(it * WIDTH_RIPLE))
 //            }
@@ -124,6 +127,19 @@ class Ripples
 
     private fun getRadius(value: Int): Int {
         return if (newCircleRadius - value > 0) newCircleRadius - value else 0
+    }
+
+    private fun drawIcon(canvas: Canvas) {
+        val radius = 100
+        paint.apply {
+            color = highColor
+            strokeWidth = thinStrokeConst * radius
+            textAlign = Paint.Align.CENTER
+        }
+        icon?.let {
+            it.setBounds(circleRadius / 2 - radius / 2, circleRadius / 2 - radius / 2, circleRadius / 2 + radius / 2, circleRadius / 2 + radius / 2)
+            it.draw(canvas)
+        }
     }
 
     private fun drawCircle(canvas: Canvas, radius: Int) {
