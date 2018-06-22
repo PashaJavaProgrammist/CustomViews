@@ -113,9 +113,9 @@ class Ripples
         }
         canvas?.let { canvas1 ->
             drawCircle(canvas1, newCircleRadius)
-            (1..10).forEach {
-                drawCircle(canvas1, getRadius(it * WIDTH_RIPLE))
-            }
+//            (1..10).forEach {
+//                drawCircle(canvas1, getRadius(it * WIDTH_RIPLE))
+//            }
         }
         if (!isAnimStarted) {
             animator().start()
@@ -127,24 +127,29 @@ class Ripples
     }
 
     private fun drawCircle(canvas: Canvas, radius: Int) {
-        paint.apply {
-            color = highColor
-            strokeWidth = thinStrokeConst * radius
-            textAlign = Paint.Align.CENTER
+        if (radius <= circleRadius) {
+            paint.apply {
+                color = highColor
+                strokeWidth = thinStrokeConst * radius
+                textAlign = Paint.Align.CENTER
+            }
+            drawable?.let {
+                it.setBounds(circleRadius / 2 - radius / 2, circleRadius / 2 - radius / 2, circleRadius / 2 + radius / 2, circleRadius / 2 + radius / 2)
+                //todo: fix alpha
+                it.alpha = convertInAlpha(radius)
+                it.draw(canvas)
+            }
         }
-        drawable?.let {
-            it.setBounds(circleRadius / 2 - radius / 2, circleRadius / 2 - radius / 2, circleRadius / 2 + radius / 2, circleRadius / 2 + radius / 2)
-            //todo: fix alpha
-            it.alpha = convertInAlpha(radius)
-            it.draw(canvas)
+        if (radius > 180) {
+            drawCircle(canvas, radius - 180)
         }
     }
 
     private fun convertInAlpha(r: Int) = ((circleRadius - r) * 100 / circleRadius) * 2
 
     private fun animator(): ValueAnimator {
-        val animator = if (counter % 2 == 0) ValueAnimator.ofInt(0, circleRadius) else ValueAnimator.ofInt(circleRadius, 100)
-        animator.duration = ANIM_DUR
+        val animator = if (counter % 2 == 0) ValueAnimator.ofInt(0, circleRadius * 1000) else ValueAnimator.ofInt(circleRadius, 100)
+        animator.duration = ANIM_DUR * 12000
         animator.interpolator = DecelerateInterpolator()
         animator.addUpdateListener { animation ->
             newCircleRadius = animation.animatedValue as Int
