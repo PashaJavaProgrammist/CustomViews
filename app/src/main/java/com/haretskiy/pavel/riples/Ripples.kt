@@ -125,7 +125,7 @@ class Ripples
     }
 
     private fun getRadius(value: Int) =
-            if (value <= 100) value else value / 100 % 10
+            /* if (value <= 100) value else value / 100 % 10*/100
 
 
     private fun drawIcon(canvas: Canvas, radius: Int) {
