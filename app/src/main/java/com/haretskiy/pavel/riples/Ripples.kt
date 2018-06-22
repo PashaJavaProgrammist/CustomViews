@@ -115,7 +115,6 @@ class Ripples
         }
         canvas?.let { canvas1 ->
             drawCircle(canvas1, newCircleRadius)
-            drawIcon(canvas1)
 //            (1..10).forEach {
 //                drawCircle(canvas1, getRadius(it * WIDTH_RIPLE))
 //            }
@@ -125,19 +124,19 @@ class Ripples
         }
     }
 
-    private fun getRadius(value: Int): Int {
-        return if (newCircleRadius - value > 0) newCircleRadius - value else 0
-    }
+    private fun getRadius(value: Int) =
+            if (value <= 100) value else value / 100 % 10
 
-    private fun drawIcon(canvas: Canvas) {
-        val radius = 100
+
+    private fun drawIcon(canvas: Canvas, radius: Int) {
+        val r = getRadius(radius)
         paint.apply {
             color = highColor
-            strokeWidth = thinStrokeConst * radius
+            strokeWidth = thinStrokeConst * r
             textAlign = Paint.Align.CENTER
         }
         icon?.let {
-            it.setBounds(circleRadius / 2 - radius / 2, circleRadius / 2 - radius / 2, circleRadius / 2 + radius / 2, circleRadius / 2 + radius / 2)
+            it.setBounds(circleRadius / 2 - r / 2, circleRadius / 2 - r / 2, circleRadius / 2 + r / 2, circleRadius / 2 + r / 2)
             it.draw(canvas)
         }
     }
@@ -154,6 +153,7 @@ class Ripples
                 it.alpha = convertInAlpha(radius)
                 it.draw(canvas)
             }
+            drawIcon(canvas, radius)
         }
         if (radius > WIDTH_RIPLE) {
             drawCircle(canvas, radius - WIDTH_RIPLE)

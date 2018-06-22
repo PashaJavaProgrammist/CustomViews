@@ -9,9 +9,9 @@
         android:height="150dp" />
     <gradient
         android:angle="45"
-        android:centerColor="@color/colorPrimary"
-        android:endColor="@color/miat_light"
-        android:gradientRadius="200"
-        android:startColor="@color/red_dark"
+        android:centerColor="@android:color/holo_blue_dark"
+        android:endColor="@android:color/holo_purple"
+        android:gradientRadius="100"
+        android:startColor="@android:color/holo_green_dark"
         android:type="linear" />
 </shape>

@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="Ripples">
         <attr name="lowColor" format="integer" />
+        <attr name="middleColor" format="integer" />
         <attr name="highColor" format="integer" />
     </declare-styleable>
 </resources>
