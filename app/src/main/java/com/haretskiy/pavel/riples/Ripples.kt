@@ -36,7 +36,7 @@ class Ripples
     private var circleRadius = 0
     private var newCircleRadius = 0
 
-    private val WIDTH_RIPLE = 100
+    private val WIDTH_RIPLE = 120
     private val ANIM_DUR = 1000L
 
     private var lowColor = 0
@@ -140,8 +140,8 @@ class Ripples
                 it.draw(canvas)
             }
         }
-        if (radius > 180) {
-            drawCircle(canvas, radius - 180)
+        if (radius > WIDTH_RIPLE) {
+            drawCircle(canvas, radius - WIDTH_RIPLE)
         }
     }
 
