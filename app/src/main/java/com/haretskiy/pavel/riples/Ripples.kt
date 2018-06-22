@@ -151,7 +151,6 @@ class Ripples
             }
             drawable?.let {
                 it.setBounds(circleRadius / 2 - radius / 2, circleRadius / 2 - radius / 2, circleRadius / 2 + radius / 2, circleRadius / 2 + radius / 2)
-                //todo: fix alpha
                 it.alpha = convertInAlpha(radius)
                 it.draw(canvas)
             }
