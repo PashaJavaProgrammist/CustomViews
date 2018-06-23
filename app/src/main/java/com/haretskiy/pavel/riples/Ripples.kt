@@ -36,9 +36,6 @@ class Ripples
     private var circleRadius = 0
     private var newCircleRadius = 0
 
-    private val WIDTH_RIPLE = 120
-    private val ANIM_DUR = 1000L
-
     private var lowColor = 0
     private var highColor = 0
 
@@ -105,18 +102,18 @@ class Ripples
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.let { it ->
-            if (circleRadius == 0) {
+            if (circleRadius == ZERO) {
                 circleRadius = if (it.width < it.height) {
-                    it.width - 10
+                    it.width - MARGIN
                 } else {
-                    it.height - 10
+                    it.height - MARGIN
                 }
             }
         }
         canvas?.let { canvas1 ->
             drawCircle(canvas1, newCircleRadius)
 //            (1..10).forEach {
-//                drawCircle(canvas1, getRadius(it * WIDTH_RIPLE))
+//                drawCircle(canvas1, getRadius(it * WIDTH_RIPPLE))
 //            }
         }
         if (!isAnimStarted) {
@@ -125,7 +122,7 @@ class Ripples
     }
 
     private fun getRadius(value: Int) =
-            /* if (value <= 100) value else value / 100 % 10*/100
+            /* if (value <= HUNDRED) value else value / HUNDRED % 10*/HUNDRED
 
 
     private fun drawIcon(canvas: Canvas, radius: Int) {
@@ -136,7 +133,10 @@ class Ripples
             textAlign = Paint.Align.CENTER
         }
         icon?.let {
-            it.setBounds(circleRadius / 2 - r / 2, circleRadius / 2 - r / 2, circleRadius / 2 + r / 2, circleRadius / 2 + r / 2)
+            it.setBounds(circleRadius / TWO - r / TWO,
+                    circleRadius / TWO - r / TWO,
+                    circleRadius / TWO + r / TWO,
+                    circleRadius / TWO + r / TWO)
             it.draw(canvas)
         }
     }
@@ -149,22 +149,27 @@ class Ripples
                 textAlign = Paint.Align.CENTER
             }
             drawable?.let {
-                it.setBounds(circleRadius / 2 - radius / 2, circleRadius / 2 - radius / 2, circleRadius / 2 + radius / 2, circleRadius / 2 + radius / 2)
+                it.setBounds(circleRadius / TWO - radius / TWO,
+                        circleRadius / TWO - radius / TWO,
+                        circleRadius / TWO + radius / TWO,
+                        circleRadius / TWO + radius / TWO)
                 it.alpha = convertInAlpha(radius)
                 it.draw(canvas)
             }
             drawIcon(canvas, radius)
         }
-        if (radius > WIDTH_RIPLE) {
-            drawCircle(canvas, radius - WIDTH_RIPLE)
+        if (radius > WIDTH_RIPPLE) {
+            drawCircle(canvas, radius - WIDTH_RIPPLE)
         }
     }
 
-    private fun convertInAlpha(r: Int) = ((circleRadius - r) * 100 / circleRadius) * 2
+    private fun convertInAlpha(r: Int) = ((circleRadius - r) * HUNDRED / circleRadius) * TWO
 
     private fun animator(): ValueAnimator {
-        val animator = if (counter % 2 == 0) ValueAnimator.ofInt(0, circleRadius * 1000) else ValueAnimator.ofInt(circleRadius, 100)
-        animator.duration = ANIM_DUR * 12000
+        val animator =
+                if (counter % TWO == ZERO) ValueAnimator.ofInt(RADIUS_BIGIN, circleRadius * RADIUS_MULT)
+                else ValueAnimator.ofInt(circleRadius * RADIUS_MULT, RADIUS_BIGIN)
+        animator.duration = ANIM_DUR * DUR_MULT
         animator.interpolator = DecelerateInterpolator()
         animator.addUpdateListener { animation ->
             newCircleRadius = animation.animatedValue as Int
@@ -185,6 +190,18 @@ class Ripples
         })
         counter++
         return animator
+    }
+
+    companion object {
+        const val RADIUS_BIGIN = 0
+        const val WIDTH_RIPPLE = 120
+        const val ANIM_DUR = 1000L
+        const val DUR_MULT = 12000
+        const val RADIUS_MULT = 1000
+        const val TWO = 2
+        const val HUNDRED = 100
+        const val ZERO = 0
+        const val MARGIN = 10
     }
 
 }
