@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ripples</string>
+    <string name="turn_on">On/Off</string>
+    <string name="reverse">Reverse</string>
 </resources>

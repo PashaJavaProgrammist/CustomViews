@@ -28,6 +28,13 @@ class Ripples
         }
     }
 
+    var reverseAnimation = false
+        set(value) {
+            field = value
+            isAnimStarted = false
+            invalidate()
+        }
+
     private var counter = 0
 
     private var isRunning = false
@@ -109,34 +116,24 @@ class Ripples
                     it.height - MARGIN
                 }
             }
-        }
-        canvas?.let { canvas1 ->
-            drawCircle(canvas1, newCircleRadius)
-//            (1..10).forEach {
-//                drawCircle(canvas1, getRadius(it * WIDTH_RIPPLE))
-//            }
+            drawCircle(canvas, newCircleRadius)
         }
         if (!isAnimStarted) {
             animator().start()
         }
     }
 
-    private fun getRadius(value: Int) =
-            /* if (value <= HUNDRED) value else value / HUNDRED % 10*/HUNDRED
-
-
     private fun drawIcon(canvas: Canvas, radius: Int) {
-        val r = getRadius(radius)
         paint.apply {
             color = highColor
-            strokeWidth = thinStrokeConst * r
+            strokeWidth = thinStrokeConst * radius
             textAlign = Paint.Align.CENTER
         }
         icon?.let {
-            it.setBounds(circleRadius / TWO - r / TWO,
-                    circleRadius / TWO - r / TWO,
-                    circleRadius / TWO + r / TWO,
-                    circleRadius / TWO + r / TWO)
+            it.setBounds(circleRadius / TWO - radius / TWO,
+                    circleRadius / TWO - radius / TWO,
+                    circleRadius / TWO + radius / TWO,
+                    circleRadius / TWO + radius / TWO)
             it.draw(canvas)
         }
     }
@@ -156,7 +153,7 @@ class Ripples
                 it.alpha = convertInAlpha(radius)
                 it.draw(canvas)
             }
-            drawIcon(canvas, radius)
+            drawIcon(canvas, HUNDRED)
         }
         if (radius > WIDTH_RIPPLE) {
             drawCircle(canvas, radius - WIDTH_RIPPLE)
@@ -166,9 +163,16 @@ class Ripples
     private fun convertInAlpha(r: Int) = ((circleRadius - r) * HUNDRED / circleRadius) * TWO
 
     private fun animator(): ValueAnimator {
-        val animator =
-                if (counter % TWO == ZERO) ValueAnimator.ofInt(RADIUS_BIGIN, circleRadius * RADIUS_MULT)
-                else ValueAnimator.ofInt(circleRadius * RADIUS_MULT, RADIUS_BIGIN)
+        /* val animator =
+                 if (counter % TWO == ZERO) ValueAnimator.ofInt(RADIUS_BIGIN, circleRadius * RADIUS_MULT)
+                 else ValueAnimator.ofInt(circleRadius * RADIUS_MULT, RADIUS_BIGIN)*/
+
+        val animator = if (reverseAnimation) {
+            ValueAnimator.ofInt(circleRadius * RADIUS_MULT, RADIUS_BIGIN)
+        } else {
+            ValueAnimator.ofInt(RADIUS_BIGIN, circleRadius * RADIUS_MULT)
+        }
+
         animator.duration = ANIM_DUR * DUR_MULT
         animator.interpolator = DecelerateInterpolator()
         animator.addUpdateListener { animation ->
