@@ -13,5 +13,9 @@ class MainActivity : AppCompatActivity() {
         toggle_reverse.setOnCheckedChangeListener { _, checked ->
             ripples.reverseAnimation = checked
         }
+
+        toggle_turn_on.setOnCheckedChangeListener { _, checked ->
+            ripples.isOn = checked
+        }
     }
 }

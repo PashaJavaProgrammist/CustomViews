@@ -35,6 +35,13 @@ class Ripples
             invalidate()
         }
 
+    var isOn = false
+        set(value) {
+            field = value
+            isAnimStarted = false
+            invalidate()
+        }
+
     private var counter = 0
 
     private var isRunning = false
@@ -116,11 +123,14 @@ class Ripples
                     it.height - MARGIN
                 }
             }
-            drawCircle(canvas, newCircleRadius)
+            if (isOn) {
+                if (!isAnimStarted) {
+                    animator().start()
+                }
+                drawCircle(canvas, newCircleRadius)
+            }
         }
-        if (!isAnimStarted) {
-            animator().start()
-        }
+        canvas?.let { drawIcon(it, HUNDRED) }
     }
 
     private fun drawIcon(canvas: Canvas, radius: Int) {
@@ -153,7 +163,6 @@ class Ripples
                 it.alpha = convertInAlpha(radius)
                 it.draw(canvas)
             }
-            drawIcon(canvas, HUNDRED)
         }
         if (radius > WIDTH_RIPPLE) {
             drawCircle(canvas, radius - WIDTH_RIPPLE)
