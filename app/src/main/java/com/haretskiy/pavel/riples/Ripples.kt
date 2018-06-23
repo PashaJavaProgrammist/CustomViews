@@ -42,7 +42,7 @@ class Ripples
             invalidate()
         }
 
-    private var counter = 0
+//    private var counter = 0
 
     private var isRunning = false
     private var isAnimStarted = false
@@ -201,7 +201,7 @@ class Ripples
             override fun onAnimationCancel(p0: Animator?) {}
 
         })
-        counter++
+//        counter++
         return animator
     }
 

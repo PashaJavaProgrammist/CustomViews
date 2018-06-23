@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".RipplesActivity">
 
     <com.haretskiy.pavel.riples.Ripples
         android:id="@+id/ripples"
