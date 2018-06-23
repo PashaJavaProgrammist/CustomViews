@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@android:color/holo_green_dark"
+    android:gravity="center"
+    tools:context=".ClocksActivity">
+
+    <com.haretskiy.pavel.riples.CustomClock
+        android:id="@+id/clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_dark"
+        android:elevation="24dp"
+        app:color_of_clock="@android:color/white"
+        app:color_of_frame="@android:color/black"
+        app:color_of_hour_arrow="@android:color/holo_blue_dark"
+        app:color_of_min_arrow="@color/GREEN"
+        app:color_of_sec_arrow="@android:color/black"
+        app:show_digital_clock="true" />
+
+</LinearLayout>

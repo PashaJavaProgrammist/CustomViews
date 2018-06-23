@@ -5,4 +5,13 @@
         <attr name="middleColor" format="integer" />
         <attr name="highColor" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="CustomClock">
+        <attr name="color_of_clock" format="integer" />
+        <attr name="color_of_frame" format="integer" />
+        <attr name="color_of_sec_arrow" format="integer" />
+        <attr name="color_of_min_arrow" format="integer" />
+        <attr name="color_of_hour_arrow" format="integer" />
+        <attr name="show_digital_clock" format="boolean" />
+    </declare-styleable>
 </resources>

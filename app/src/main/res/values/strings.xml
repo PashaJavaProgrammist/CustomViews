@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Ripples</string>
+    <string name="app_name">Custom Views</string>
     <string name="turn_on">On/Off</string>
     <string name="reverse">Reverse</string>
+    <string name="ripples">Ripples</string>
+    <string name="clocks">Clocks</string>
 </resources>
