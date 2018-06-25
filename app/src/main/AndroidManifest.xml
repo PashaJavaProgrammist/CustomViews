@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.haretskiy.pavel.riples">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,6 +25,11 @@
         <activity
             android:name=".ClocksActivity"
             android:label="@string/clocks" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="cdd6e2b9836d2304fd3fa2a93fa24fd44b026930" />
+
     </application>
 
 </manifest>
